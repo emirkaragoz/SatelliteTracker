@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.space.satellitetracker.databinding.FragmentListBinding
@@ -31,6 +32,19 @@ class ListFragment: Fragment() {
         viewBinding.satelliteList.adapter = adapter
         viewBinding.satelliteList.layoutManager = LinearLayoutManager(context)
         viewBinding.satelliteList.setHasFixedSize(false)
+
+        viewBinding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                viewBinding.searchBar.clearFocus()
+                p0?.let { viewModel.onSearchTextChanged(it) }
+                return false
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                p0?.let { viewModel.onSearchTextChanged(it) }
+                return false
+            }
+        })
 
         collectLatestLifecycleFlow(viewModel.state) {
             if (it.isLoading) {    //loading

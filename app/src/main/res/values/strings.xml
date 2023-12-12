@@ -2,4 +2,5 @@
     <string name="app_name">SatelliteTracker</string>
     <string name="active">Active</string>
     <string name="passive">Passive</string>
+    <string name="search">Search</string>
 </resources>

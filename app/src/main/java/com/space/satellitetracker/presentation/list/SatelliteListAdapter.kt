@@ -41,9 +41,9 @@ class SatelliteListAdapter: RecyclerView.Adapter<SatelliteListAdapter.SatelliteL
                 binding.statusText.text = binding.root.context.getString(R.string.passive)
                 binding.status.background = ContextCompat.getDrawable(context, R.drawable.bg_passive_status_indicator)
             }
-            if (position == itemCount-1) { //last item
-                binding.separator.visibility = View.GONE
-            }
+
+            //last item won't have separator
+            binding.separator.visibility = if(position == itemCount-1) View.GONE else View.VISIBLE
         }
     }
 
