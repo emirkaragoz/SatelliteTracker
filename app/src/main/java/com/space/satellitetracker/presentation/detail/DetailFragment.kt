@@ -1,4 +1,4 @@
-package com.space.satellitetracker.presentation
+package com.space.satellitetracker.presentation.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater

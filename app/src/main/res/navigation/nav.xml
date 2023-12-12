@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.space.satellitetracker.presentation.ListFragment"
+        android:name="com.space.satellitetracker.presentation.list.ListFragment"
         android:label="fragment_standings"
         tools:layout="@layout/fragment_list" >
         <action
@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.space.satellitetracker.presentation.DetailFragment"
+        android:name="com.space.satellitetracker.presentation.detail.DetailFragment"
         android:label="fragment_second"
         tools:layout="@layout/fragment_detail" />
 
