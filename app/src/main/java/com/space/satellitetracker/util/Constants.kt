@@ -3,5 +3,7 @@ package com.space.satellitetracker.util
 class Constants {
     companion object {
         const val SATELLITE_JSON_NAME = "satellites.json"
+        const val SATELLITE_DETAIL_JSON_NAME = "satellite-detail.json"
+        const val SATELLITE_DB_NAME = "satellite_database"
     }
 }

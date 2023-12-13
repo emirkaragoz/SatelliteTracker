@@ -3,4 +3,8 @@
     <string name="active">Active</string>
     <string name="passive">Passive</string>
     <string name="search">Search</string>
+    <string name="id_error">ID not found in the JSON file</string>
+    <string name="height_mass">Height/Mass:%s</string>
+    <string name="cost">Cost:%s</string>
+    <string name="last_position" formatted="true">Last Position: (</string>
 </resources>

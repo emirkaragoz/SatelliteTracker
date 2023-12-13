@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -44,6 +45,11 @@ class SatelliteListAdapter: RecyclerView.Adapter<SatelliteListAdapter.SatelliteL
 
             //last item won't have separator
             binding.separator.visibility = if(position == itemCount-1) View.GONE else View.VISIBLE
+
+            binding.root.setOnClickListener {
+                val action = ListFragmentDirections.actionListFragmentToDetailFragment(item.id,item.name)
+                Navigation.findNavController(binding.root).navigate(action)
+            }
         }
     }
 

@@ -58,7 +58,7 @@ class ListFragment: Fragment() {
                 }
             } else {    //success
                 viewBinding.loadingIndicator.visibility = View.GONE
-                adapter.listDiffer.submitList(it.satellites)
+                adapter.listDiffer.submitList(it.data)
             }
         }
     }
