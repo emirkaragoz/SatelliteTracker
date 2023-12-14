@@ -6,12 +6,16 @@ import com.google.gson.JsonSyntaxException
 import com.google.gson.reflect.TypeToken
 import com.space.satellitetracker.R
 import com.space.satellitetracker.data.data_source.SatelliteDao
+import com.space.satellitetracker.data.model.Root
+import com.space.satellitetracker.domain.model.Coordinate
+import com.space.satellitetracker.domain.model.Position
 import com.space.satellitetracker.util.Constants.Companion.SATELLITE_JSON_NAME
 import com.space.satellitetracker.util.Resource
 import com.space.satellitetracker.domain.model.Satellite
 import com.space.satellitetracker.domain.model.SatelliteDetail
 import com.space.satellitetracker.domain.repository.SatelliteRepository
 import com.space.satellitetracker.util.Constants.Companion.SATELLITE_DETAIL_JSON_NAME
+import com.space.satellitetracker.util.Constants.Companion.SATELLITE_POSITIONS_JSON_NAME
 import java.io.IOException
 import java.lang.Exception
 
@@ -46,6 +50,31 @@ class SatelliteRepositoryImpl(private val dao: SatelliteDao): SatelliteRepositor
                     Resource.Success(it)
                 }
             }
+        } catch (io: IOException) {
+            Resource.Error(io.message)
+        } catch (json: JsonSyntaxException) {
+            Resource.Error(json.message)
+        } catch (e: Exception) {
+            Resource.Error(e.message)
+        }
+    }
+
+    override suspend fun getPositionList(context: Context): Resource<List<Position>> {
+        return try {
+            val jsonString = context.assets.open(SATELLITE_POSITIONS_JSON_NAME).bufferedReader().use {
+                it.readText()
+            }
+            val result = Gson().fromJson<Root>(jsonString, object : TypeToken<Root>() {}.type)
+
+            val positionList = mutableListOf<Position>()
+            result.list.forEach {
+                val coordinateList = mutableListOf<Coordinate>()
+                it.positions.forEach { pos ->
+                    coordinateList.add(Coordinate(pos.posX,pos.posY))
+                }
+                positionList.add(Position(it.id,coordinateList))
+            }
+            Resource.Success(positionList)
         } catch (io: IOException) {
             Resource.Error(io.message)
         } catch (json: JsonSyntaxException) {

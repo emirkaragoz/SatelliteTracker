@@ -6,6 +6,7 @@ import com.space.satellitetracker.data.data_source.SatelliteDatabase
 import com.space.satellitetracker.data.repository.SatelliteRepositoryImpl
 import com.space.satellitetracker.domain.repository.SatelliteRepository
 import com.space.satellitetracker.domain.use_case.AddSatelliteDetailToCache
+import com.space.satellitetracker.domain.use_case.GetPositionList
 import com.space.satellitetracker.domain.use_case.GetSatelliteDetail
 import com.space.satellitetracker.domain.use_case.GetSatelliteDetailFromCache
 import com.space.satellitetracker.domain.use_case.GetSatelliteList
@@ -26,6 +27,7 @@ val appModule = module {
     single { GetSatelliteDetail(get(), androidContext()) }
     single { GetSatelliteDetailFromCache(get()) }
     single { AddSatelliteDetailToCache(get()) }
+    single { GetPositionList(get(),androidContext()) }
     single { provideDatabase(androidContext()) }
     single { provideDao(get()) }
 
@@ -33,7 +35,7 @@ val appModule = module {
 
     // region ViewModels
     viewModel { ListViewModel(get()) }
-    viewModel { DetailViewModel(get(),get(),get()) }
+    viewModel { DetailViewModel(get(),get(),get(),get()) }
 }
 
 

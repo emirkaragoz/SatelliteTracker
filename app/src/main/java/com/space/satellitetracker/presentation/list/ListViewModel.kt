@@ -42,7 +42,7 @@ class ListViewModel(private val getSatelliteList: GetSatelliteList): ViewModel()
         viewModelScope.launch(Dispatchers.IO) {
             _state.emit(GenericUIState(isLoading = true))
 
-            //delay(2000) //to simulate long process and help to see loading indicator
+            delay(2000) //to simulate long process and help to see loading indicator
 
             when(val list = getSatelliteList()) {
                 is Resource.Success -> {

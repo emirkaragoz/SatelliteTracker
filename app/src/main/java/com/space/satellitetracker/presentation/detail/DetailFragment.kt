@@ -49,25 +49,29 @@ class DetailFragment: Fragment() {
                 viewBinding.date.text = it.data?.date?.let { date -> convertTime(date) }
 
                 //Height/Mass
-                context?.getString(
-                    R.string.height_mass,
-                    it.data?.height.toString().plus("/").plus(it.data?.mass.toString())
-                )?.let { text ->
-                    viewBinding.height.text = setBoldSpannable(text)
-                }
+                viewBinding.height.text = setBoldSpannable(
+                    getString(
+                        R.string.height_mass,
+                        it.data?.height.toString().plus("/").plus(it.data?.mass.toString())
+                    )
+                )
 
                 //Cost
-                context?.getString(
-                    R.string.cost,
-                    DecimalFormat("#,###")
-                        .format(it.data?.cost)
-                        .replace(",", ".")
-                )?.let { text ->
-                    viewBinding.cost.text = setBoldSpannable(text)
-                }
-
+                viewBinding.cost.text = setBoldSpannable(
+                    getString(
+                        R.string.cost,
+                        DecimalFormat("#,###")
+                            .format(it.data?.cost)
+                            .replace(",", ".")
+                    )
+                )
 
             }
+        }
+
+        collectLatestLifecycleFlow(viewModel.position) {
+            viewBinding.position.text =
+                setBoldSpannable(getString(R.string.last_position, it.posX, it.posY))
         }
     }
 }
